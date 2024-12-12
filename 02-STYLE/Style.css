@@ -1,0 +1,149 @@
+body {
+    background: #0D1117;
+}
+
+.main-wrapper {
+    max-width: 280px;
+}
+
+.justified-text {
+    text-align: justify;
+}
+
+/* === Input Styles === */
+input {
+    width: 100%; 
+    outline: none;
+    font-size: 12px;
+    cursor: pointer; 
+    padding: 10px 12px;
+    box-sizing: border-box;
+    font-family: 'Inconsolata';
+    background-color: #0D1117;
+    border: 1px solid #2F353E;
+    transition: border-color 0.3s;
+}
+input:focus {
+    color: white;
+    border-color: #3698F5;
+}
+
+/* === Text Styles === */
+p, .question-display, button {
+    font-family: 'Inconsolata';
+    color: white;
+}
+.text-blue {
+    color: #3698F5; 
+}
+.trans-50 {
+    opacity: 0.5; /* Use percentage as decimal for opacity */
+}
+.text-size_10 {
+    font-size: 10px;
+}
+.text-size_12 {
+    font-size: 12px;
+}
+
+/* === Button Styles === */
+button {
+    width: 100%; 
+    border: none; 
+    font-size: 12px;
+    cursor: pointer; 
+    padding: 10px 12px; 
+    background-color: #27853C;
+    transition: background-color 0.3s; 
+}
+button:focus, button:hover {
+    outline: none; 
+    background-color: #2D8F42;
+}
+
+/* === Game Info & Panel === */
+.game-info, .game-panel {
+    padding: 16px;
+    border: 1px solid #2F353E;
+}
+.game-panel {
+    background: #141B23;
+}
+
+#feedback {
+    margin-top: 8px; 
+}
+
+.question-display {
+    font-size: 70px;
+}
+
+/* Reused font-family grouped for efficiency */
+* {
+    font-family: 'Inconsolata';
+}
+
+
+/* Style for select (to match input) */
+.selection-area-input {
+    width: 100%; 
+    outline: none;
+    font-size: 12px;
+    cursor: pointer; 
+    padding: 10px 12px;
+    box-sizing: border-box;
+    font-family: 'Inconsolata';
+    background-color: #0D1117;
+    border: 1px solid #2F353E;
+    color: white; /* Same text color as input */
+    appearance: none; /* Remove default arrow in some browsers */
+    transition: border-color 0.3s;
+}
+.selection-area-input:focus {
+    border-color: #3698F5;
+}
+
+
+
+
+/* Center content horizontally and vertically */
+.main-wrapper {
+    max-width: 280px;
+    margin: 0 auto; /* Center horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+/* Style for the randomizer link-button */
+/* Updated randomizer button styles */
+.link-button {
+    width: 100%; 
+    border: none; 
+    font-size: 12px;
+    cursor: pointer; 
+    padding: 10px 12px; 
+    background-color: rgba(39, 133, 60, 0.5); /* 50% opacity */
+    transition: background-color 0.3s;
+    border: 1px solid #27853C; /* Border without opacity */
+}
+
+.link-button:focus, 
+.link-button:hover {
+    outline: none; 
+    background-color: #2D8F42; /* Darker green on hover and focus */
+}
+
+
+.logo-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

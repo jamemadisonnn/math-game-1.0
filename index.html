@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="" href="">  <!--Website > FAVICON-->
+    
+    <!--STYLE-->
+    <link rel="stylesheet" href="02-STYLE/Style.css">
+    <link rel="stylesheet" href="02-STYLE/MasterReset.css">
+    <link rel="stylesheet" href="02-STYLE/MasterStyle.css">
+
+     <!--FONT-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    
+    <title>Math—Game v1.0</title>
+
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="content-holder">
+            <div class="spacer-100"></div>
+            <div class="logo-block">
+                <img src="/04-IMAGE/Club — Fitness _ Logo.svg" alt="Your Logo" class="logo">
+            </div>
+            <div class="spacer-60"></div>
+            <div class="game-panel">
+                <div class="question-display" id="question">What is 3 x ?</div>
+                <div class="spacer-16"></div>
+                <div class="selection-area">
+                    <div class="selection-area_textblock">
+                        <p class="text-size_12">Select Times Table</p> 
+                    </div>
+                    <div class="spacer-8"></div>
+                    <div class="selection-area-input-container"> 
+                        <select id="times-table" class="selection-area-input" onchange="generateQuestion()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>                    
+                </div>
+                <div class="spacer-12"></div>
+                <input type="number" id="answer" class="input-field" placeholder="Enter your answer">
+                <div class="spacer-24"></div>
+                <button class="link-button" onclick="randomizeTable()">RANDOMIZER</button>
+                <div class="spacer-12"></div>
+                <button class="button" id="randomize-button" onclick="checkAnswer()">SUBMIT</button>
+                <p class="response-input" id="feedback"></p>
+            </div>         
+            <div class="spacer-16"></div>
+            <div class="game-info">
+                <p class="text-blue">Math—Game v1.0</p>
+                <div class="spacer-12"></div>
+                <p class="justified-text trans-50 text-size_10">
+                    I created this game for my nephew to help him learn his times tables. Many online options are clunky and filled with ads, so I aimed for a simple, ad-free solution. With a user-friendly interface and times table selection from 1 to 12, it’s an effective and enjoyable way for kids to practice multiplication skills!
+                </p>
+            </div>
+            <div class="spacer-8"></div>
+            <div class="footer">
+                <p class="text-size_10">© 2024 All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let randomNumber;
+    let selectedTable = 3; // Default to 3 times table
+
+    // Function to generate a new question
+    function generateQuestion() {
+        randomNumber = Math.floor(Math.random() * 12) + 1; // Random number between 1 and 12
+
+        // Format numbers to be two digits
+        const formattedSelectedTable = String(selectedTable).padStart(2, '0');
+        const formattedRandomNumber = String(randomNumber).padStart(2, '0');
+
+        // Display the question
+        document.getElementById('question').textContent = `${formattedSelectedTable} x ${formattedRandomNumber}`;
+        document.getElementById('answer').value = ''; // Clear the input field
+        document.getElementById('feedback').textContent = ''; // Clear any feedback
+        document.getElementById('feedback').style.color = ''; // Reset color
+    }
+
+    // Function to check the user's answer
+    function checkAnswer() {
+        const userAnswer = document.getElementById('answer').value;
+        const correctAnswer = selectedTable * randomNumber;
+
+        if (parseInt(userAnswer) === correctAnswer) {
+            document.getElementById('feedback').textContent = 'Correct! Well done!';
+            document.getElementById('feedback').style.color = ''; // Reset to default color
+            generateQuestion(); // Generate a new question after a correct answer
+        } else {
+            document.getElementById('feedback').textContent = 'Incorrect. Try again!';
+            document.getElementById('feedback').style.color = '#fc3158'; // Set to the desired red color
+        }
+    }
+
+    // Function to randomize the times table
+    function randomizeTable() {
+        selectedTable = Math.floor(Math.random() * 12) + 1; // Random times table between 1 and 12
+        generateQuestion(); // Generate a new question with the randomized table
+    }
+
+    // Event listener for pressing "Enter" in the input field
+    document.getElementById('answer').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    });
+
+    // Generate the first question when the page loads
+    generateQuestion();
+    </script>
+</body>
+</html>
