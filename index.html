@@ -52,7 +52,6 @@
                 </div>
                 <div class="spacer-12"></div>
                 
-                <!-- Updated input for numeric keypad -->
                 <input 
                     type="text" 
                     inputmode="numeric" 
@@ -86,47 +85,60 @@
     <script>
     let randomNumber;
     let selectedTable = 3; // Default to 3 times table
+    let isProcessing = false; // Prevents double triggering
 
     // Function to generate a new question
     function generateQuestion() {
-        randomNumber = Math.floor(Math.random() * 12) + 1; // Random number between 1 and 12
+        randomNumber = Math.floor(Math.random() * 12) + 1;
         
-        // Format numbers to be two digits
         const formattedSelectedTable = String(selectedTable).padStart(2, '0');
         const formattedRandomNumber = String(randomNumber).padStart(2, '0');
         
-        // Display the question
         document.getElementById('question').textContent = `${formattedSelectedTable} x ${formattedRandomNumber}`;
-        document.getElementById('answer').value = ''; // Clear the input field
-        document.getElementById('feedback').textContent = ''; // Clear any feedback
-        document.getElementById('feedback').style.color = ''; // Reset color
+        document.getElementById('answer').value = '';
+        document.getElementById('feedback').textContent = '';
+        document.getElementById('feedback').style.color = '';
         
-        // Auto-focus the input so the keypad appears immediately
+        isProcessing = false;
         document.getElementById('answer').focus();
     }
 
     // Function to check the user's answer
     function checkAnswer() {
+        if (isProcessing) return;
+
         const userAnswer = document.getElementById('answer').value;
         const correctAnswer = selectedTable * randomNumber;
-        
+
+        if (userAnswer === '') return;
+
         if (parseInt(userAnswer) === correctAnswer) {
+            isProcessing = true;
             document.getElementById('feedback').textContent = 'Correct! Well done!';
-            document.getElementById('feedback').style.color = ''; // Reset to default color
-            generateQuestion(); // Generate a new question after a correct answer
+            document.getElementById('feedback').style.color = '';
+            
+            // Small delay so they can see "Correct!" before next question
+            setTimeout(() => {
+                generateQuestion();
+            }, 350);
         } else {
             document.getElementById('feedback').textContent = 'Incorrect. Try again!';
-            document.getElementById('feedback').style.color = '#fc3158'; // Set to the desired red color
+            document.getElementById('feedback').style.color = '#fc3158';
         }
     }
 
+    // Auto-check as the user types
+    document.getElementById('answer').addEventListener('input', function() {
+        checkAnswer();
+    });
+
     // Function to randomize the times table
     function randomizeTable() {
-        selectedTable = Math.floor(Math.random() * 12) + 1; // Random times table between 1 and 12
-        generateQuestion(); // Generate a new question with the randomized table
+        selectedTable = Math.floor(Math.random() * 12) + 1;
+        generateQuestion();
     }
 
-    // Event listener for pressing "Enter" in the input field
+    // Event listener for pressing "Enter"
     document.getElementById('answer').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             checkAnswer();
