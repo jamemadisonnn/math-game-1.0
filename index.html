@@ -10,14 +10,12 @@
     <link rel="stylesheet" href="02-STYLE/Style.css">
     <link rel="stylesheet" href="02-STYLE/MasterReset.css">
     <link rel="stylesheet" href="02-STYLE/MasterStyle.css">
-
      <!--FONT-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
     
     <title>Math—Game v1.0</title>
-
 </head>
 <body>
     <div class="main-wrapper">
@@ -53,7 +51,18 @@
                     </div>                    
                 </div>
                 <div class="spacer-12"></div>
-                <input type="number" id="answer" class="input-field" placeholder="Enter your answer">
+                
+                <!-- Updated input for numeric keypad -->
+                <input 
+                    type="text" 
+                    inputmode="numeric" 
+                    pattern="[0-9]*" 
+                    id="answer" 
+                    class="input-field" 
+                    placeholder="Enter your answer"
+                    autocomplete="off"
+                >
+                
                 <div class="spacer-24"></div>
                 <button class="link-button" onclick="randomizeTable()">RANDOMIZER</button>
                 <div class="spacer-12"></div>
@@ -74,7 +83,6 @@
             </div>
         </div>
     </div>
-
     <script>
     let randomNumber;
     let selectedTable = 3; // Default to 3 times table
@@ -82,23 +90,26 @@
     // Function to generate a new question
     function generateQuestion() {
         randomNumber = Math.floor(Math.random() * 12) + 1; // Random number between 1 and 12
-
+        
         // Format numbers to be two digits
         const formattedSelectedTable = String(selectedTable).padStart(2, '0');
         const formattedRandomNumber = String(randomNumber).padStart(2, '0');
-
+        
         // Display the question
         document.getElementById('question').textContent = `${formattedSelectedTable} x ${formattedRandomNumber}`;
         document.getElementById('answer').value = ''; // Clear the input field
         document.getElementById('feedback').textContent = ''; // Clear any feedback
         document.getElementById('feedback').style.color = ''; // Reset color
+        
+        // Auto-focus the input so the keypad appears immediately
+        document.getElementById('answer').focus();
     }
 
     // Function to check the user's answer
     function checkAnswer() {
         const userAnswer = document.getElementById('answer').value;
         const correctAnswer = selectedTable * randomNumber;
-
+        
         if (parseInt(userAnswer) === correctAnswer) {
             document.getElementById('feedback').textContent = 'Correct! Well done!';
             document.getElementById('feedback').style.color = ''; // Reset to default color
