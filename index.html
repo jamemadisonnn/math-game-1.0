@@ -37,7 +37,7 @@
                         <select id="times-table" class="selection-area-input" onchange="generateQuestion()">
                             <option value="1">1</option>
                             <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="3" selected>3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
                             <option value="6">6</option>
@@ -84,11 +84,14 @@
     </div>
     <script>
     let randomNumber;
-    let selectedTable = 3; // Default to 3 times table
-    let isProcessing = false; // Prevents double triggering
+    let selectedTable = 3;
+    let isProcessing = false;
 
     // Function to generate a new question
     function generateQuestion() {
+        // Always read the current value from the dropdown
+        selectedTable = parseInt(document.getElementById('times-table').value);
+        
         randomNumber = Math.floor(Math.random() * 12) + 1;
         
         const formattedSelectedTable = String(selectedTable).padStart(2, '0');
@@ -117,7 +120,6 @@
             document.getElementById('feedback').textContent = 'Correct! Well done!';
             document.getElementById('feedback').style.color = '';
             
-            // Small delay so they can see "Correct!" before next question
             setTimeout(() => {
                 generateQuestion();
             }, 350);
@@ -135,6 +137,7 @@
     // Function to randomize the times table
     function randomizeTable() {
         selectedTable = Math.floor(Math.random() * 12) + 1;
+        document.getElementById('times-table').value = selectedTable; // Update the dropdown too
         generateQuestion();
     }
 
